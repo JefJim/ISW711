@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gestión de Cursos</title>
+</head>
+<body>
+  <h1>Gestión de Cursos</h1>
+    
+  <button onclick="window.location.href='index.html'">Ir a Gestión de profesores</button>
+  <!-- Formulario para crear un curso -->
+  <form id="create-course-form">
+    <h2>Crear Curso</h2>
+    <div>
+      <label for="name">Nombre:</label>
+      <input type="text" id="name" name="name" required>
+      <span class="error" id="name_error"></span>
+    </div>
+    <div>
+      <label for="code">Código:</label>
+      <input type="text" id="code" name="code" required>
+      <span class="error" id="code_error"></span>
+    </div>
+    <div>
+      <label for="description">Descripción:</label>
+      <input type="text" id="description" name="description" required>
+      <span class="error" id="description_error"></span>
+    </div>
+    <div>
+      <label for="teacher">Profesor:</label>
+      <select id="teacher" name="teacher" required>
+        <!-- Opciones de profesores se cargarán dinámicamente -->
+      </select>
+      <span class="error" id="teacher_error"></span>
+    </div>
+    <button type="submit">Crear Curso</button>
+  </form>
+
+  <!-- Lista de cursos -->
+  <div id="courses-list">
+    <h2>Lista de Cursos</h2>
+    <button id="refresh-courses">Actualizar Lista</button>
+    <ul id="courses"></ul>
+  </div>
+
+  <!-- Formulario de edición (oculto por defecto) -->
+  <div id="edit-course-form" class="edit-form">
+    <h2>Editar Curso</h2>
+    <form id="edit-form">
+      <input type="hidden" id="edit-id" name="id">
+      <div>
+        <label for="edit-name">Nombre:</label>
+        <input type="text" id="edit-name" name="name" required>
+        <span class="error" id="edit-name_error"></span>
+      </div>
+      <div>
+        <label for="edit-code">Código:</label>
+        <input type="text" id="edit-code" name="code" required>
+        <span class="error" id="edit-code_error"></span>
+      </div>
+      <div>
+        <label for="edit-description">Descripción:</label>
+        <input type="text" id="edit-description" name="description" required>
+        <span class="error" id="edit-description_error"></span>
+      </div>
+      <div>
+        <label for="edit-teacher">Profesor:</label>
+        <select id="edit-teacher" name="teacher" required>
+          <!-- Opciones de profesores se cargarán dinámicamente -->
+        </select>
+        <span class="error" id="edit-teacher_error"></span>
+      </div>
+      <button type="submit">Guardar Cambios</button>
+      <button type="button" id="cancel-edit">Cancelar</button>
+    </form>
+  </div>
+
+  <!-- Incluir el archivo JavaScript externo -->
+  <script src="courses.js"></script>
+</body>
+</html>
