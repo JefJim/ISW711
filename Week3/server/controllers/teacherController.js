@@ -88,13 +88,13 @@ const teacherPatch = async (req, res) => {
       return res.status(404).json({ error: "Teacher not found" });
     }
 
-    // Actualizar solo los campos proporcionados
+    // Update only attributes selected
     if (first_name) teacher.first_name = first_name;
     if (last_name) teacher.last_name = last_name;
     if (cedula) teacher.cedula = cedula;
     if (age) teacher.age = age;
 
-    // Guardar los cambios
+    // Save changes
     await teacher.save();
     res.json(teacher);
   } catch (err) {
@@ -114,7 +114,7 @@ module.exports = {
  */
 const teacherDelete = async (req, res) => {
   try {
-    const { id } = req.params; // Obtener el ID de la URL
+    const { id } = req.params; // Get ID from URL
     const teacher = await Teacher.findByIdAndDelete(id);
     if (!teacher) {
       return res.status(404).json({ error: 'Teacher not found' });

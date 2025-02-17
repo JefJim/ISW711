@@ -1,19 +1,19 @@
-// URL base de la API
+// URL to API
 const API_URL = "http://localhost:3001/api/teachers";
 
-// Función para mostrar errores de validación
+// Function to show errors of validation
 function showError(field, message) {
   const errorElement = document.getElementById(`${field}_error`);
   errorElement.textContent = message;
 }
 
-// Función para limpiar errores
+// Funct to clean errorr
 function clearErrors() {
   const errorElements = document.querySelectorAll('.error');
   errorElements.forEach(element => element.textContent = '');
 }
 
-// Función para crear un profesor
+// Func to create a teacher
 document.getElementById("create-teacher-form").addEventListener("submit", async (e) => {
   e.preventDefault();
   clearErrors();
@@ -36,9 +36,9 @@ document.getElementById("create-teacher-form").addEventListener("submit", async 
   if (response.ok) {
     alert("Profesor creado exitosamente");
     document.getElementById("create-teacher-form").reset();
-    fetchTeachers(); // Actualizar la lista de profesores
+    fetchTeachers(); // Update teacher list
   } else {
-    // Mostrar errores de validación
+    // Show validation errors
     if (data.errors) {
       data.errors.forEach(error => {
         showError(error.param, error.msg);
@@ -49,19 +49,19 @@ document.getElementById("create-teacher-form").addEventListener("submit", async 
   }
 });
 
-// Función para listar todos los profesores
+// Func to call all teachers
 async function fetchTeachers() {
   const response = await fetch(API_URL);
   const teachers = await response.json();
 
   const teachersList = document.getElementById("teachers");
-  teachersList.innerHTML = ""; // Limpiar la lista
+  teachersList.innerHTML = ""; //Clean list
 
   teachers.forEach((teacher) => {
     const li = document.createElement("li");
     li.textContent = `Nombre: ${teacher.first_name} ${teacher.last_name}, Cédula: ${teacher.cedula}, Edad: ${teacher.age}`;
 
-    // Botón para eliminar un profesor
+    // Buttonto eliminate a teacher
     const deleteButton = document.createElement("button");
     deleteButton.textContent = "Eliminar";
     deleteButton.addEventListener("click", async () => {
@@ -71,13 +71,13 @@ async function fetchTeachers() {
 
       if (deleteResponse.ok) {
         alert("Profesor eliminado exitosamente");
-        fetchTeachers(); // Actualizar la lista de profesores
+        fetchTeachers(); // Update teacher list
       } else {
         alert("Error al eliminar el profesor");
       }
     });
 
-    // Botón para actualizar un profesor
+    // Button to update
     const updateButton = document.createElement("button");
     updateButton.textContent = "Actualizar";
     updateButton.addEventListener("click", () => {
@@ -90,7 +90,7 @@ async function fetchTeachers() {
   });
 }
 
-// Función para mostrar el formulario de edición
+// Funct to show edit form
 function showEditForm(teacher) {
   document.getElementById("edit-id").value = teacher._id;
   document.getElementById("edit-first_name").value = teacher.first_name;
@@ -100,12 +100,12 @@ function showEditForm(teacher) {
   document.getElementById("edit-teacher-form").style.display = "block";
 }
 
-// Función para ocultar el formulario de edición
+// Func to hide edit form
 document.getElementById("cancel-edit").addEventListener("click", () => {
   document.getElementById("edit-teacher-form").style.display = "none";
 });
 
-// Función para actualizar un profesor
+// func to update a teacher
 document.getElementById("edit-form").addEventListener("submit", async (e) => {
     e.preventDefault();
     clearErrors();
@@ -129,9 +129,9 @@ document.getElementById("edit-form").addEventListener("submit", async (e) => {
     if (response.ok) {
       alert("Profesor actualizado exitosamente");
       document.getElementById("edit-teacher-form").style.display = "none";
-      fetchTeachers(); // Actualizar la lista de profesores
+      fetchTeachers();
     } else {
-      // Mostrar errores de validación
+      
       if (data.errors) {
         data.errors.forEach(error => {
           showError(`edit-${error.param}`, error.msg);
@@ -142,8 +142,8 @@ document.getElementById("edit-form").addEventListener("submit", async (e) => {
     }
   });
 
-// Botón para actualizar la lista de profesores
+// Button to update teacher list
 document.getElementById("refresh-teachers").addEventListener("click", fetchTeachers);
 
-// Cargar la lista de profesores al cargar la página
+// Load teacher list when page start
 window.onload = fetchTeachers;
